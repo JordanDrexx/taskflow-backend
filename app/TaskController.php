@@ -12,8 +12,8 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         // TODO(sesion-05): borra la línea de abajo y descomenta el bloque completo.
-        
-        return TaskResource::collection($request->user()->tasks);
+        return TaskResource::collection(Task::all());
+        // return TaskResource::collection($request->user()->tasks);
     }
 
     public function store(Request $request)
@@ -25,16 +25,16 @@ class TaskController extends Controller
         ]);
 
         // TODO(sesion-05): borra la línea de abajo y descomenta el bloque completo.
-        
-        $task = $request->user()->tasks()->create($validated);
+        $task = Task::create($validated);
+        // $task = $request->user()->tasks()->create($validated);
         return new TaskResource($task);
     }
 
     public function show(Request $request, $id)
     {
         // TODO(sesion-05): borra la línea de abajo y descomenta la línea real.
-        
-        $task = $request->user()->tasks()->findOrFail($id);
+        $task = Task::findOrFail($id);
+        // $task = $request->user()->tasks()->findOrFail($id);
         return new TaskResource($task);
     }
 
@@ -47,8 +47,8 @@ class TaskController extends Controller
         ]);
 
         // TODO(sesion-05): borra la línea de abajo y descomenta la línea real.
-        
-        $task = $request->user()->tasks()->findOrFail($id);
+        $task = Task::findOrFail($id);
+        // $task = $request->user()->tasks()->findOrFail($id);
         $task->update($validated);
         return new TaskResource($task);
     }
@@ -56,10 +56,9 @@ class TaskController extends Controller
     public function destroy(Request $request, $id)
     {
         // TODO(sesion-05): borra la línea de abajo y descomenta la línea real.
-        
-        $task = $request->user()->tasks()->findOrFail($id);
+        $task = Task::findOrFail($id);
+        // $task = $request->user()->tasks()->findOrFail($id);
         $task->delete();
         return response()->json(null, 204);
     }
 }
-
